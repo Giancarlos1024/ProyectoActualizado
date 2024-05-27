@@ -38,10 +38,29 @@ export const GatewayProvider = ({ children }) => {
         fetchGateways();
     };
 
-    const updateGateway = async (id, macAddress) => {
-        await axios.put(`http://localhost:3000/gatewayregister/${id}`, { MacAddress: macAddress });
+    const updateGateway = async (id, macAddress, timestamp) => {
+        console.log("Datos Recibidos:", id, macAddress, timestamp);
+    
+        // Verificar si timestamp es una cadena y convertirla a un objeto Date si es necesario
+        if (typeof timestamp === 'string') {
+            timestamp = new Date(timestamp);
+        }
+    
+        // Verificar si timestamp es un objeto Date
+        if (!(timestamp instanceof Date && !isNaN(timestamp))) {
+            console.error("El timestamp no es un objeto Date válido");
+            return;
+        }
+    
+        // Formatear el timestamp como una cadena ISO
+        const formattedTimestamp = timestamp.toISOString();
+    
+        await axios.put(`http://localhost:3000/gatewayregister/${id}`, { GatewayID:id,MacAddress: macAddress, Timestamp: formattedTimestamp });
+        console.log("Datos enviados:", { GatewayID:id,MacAddress: macAddress, Timestamp: formattedTimestamp });
         fetchGateways();
     };
+    
+    
 
     const deleteGateway = async (id) => {
         await axios.delete(`http://localhost:3000/gatewayregister/${id}`);

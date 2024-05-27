@@ -6,9 +6,7 @@ import "./AreaForm_CreateGateway.css";
 export const AreaForm_CreateGateway = () => {
     const [formData, setFormData] = useState({
         MacAddress: '',
-        GatewayFree: '',
-        GatewayLoad: '',
-        Timestamp: '',
+        Timestamp: '', // Añadir campo de timestamp
     });
 
     const { createGateway } = useContext(GatewayContext);
@@ -28,10 +26,8 @@ export const AreaForm_CreateGateway = () => {
             Swal.fire('¡Éxito!', 'Gateway creado exitosamente!', 'success');
             setFormData({
                 MacAddress: '',
-                GatewayFree: '',
-                GatewayLoad: '',
-                Timestamp: '',
-            }); // Limpiar el formulario después de enviar
+                Timestamp: '', // Limpiar campo de timestamp
+            });
         } catch (error) {
             console.error('Error al crear el gateway:', error.message);
             Swal.fire('Error', 'Error al crear el gateway', 'error');
@@ -42,10 +38,22 @@ export const AreaForm_CreateGateway = () => {
         <div>
             <h2>REGISTRAR GATEWAY</h2>
             <form className='form-employe' onSubmit={handleSubmit}>
-                <input type="text" name="MacAddress" placeholder='Mac Address' value={formData.MacAddress} required onChange={handleChange} />
-                <input type="number" name="GatewayFree" placeholder='Gateway Free' value={formData.GatewayFree} required onChange={handleChange} />
-                <input type="number" step="0.01" name="GatewayLoad" placeholder='Gateway Load' value={formData.GatewayLoad} required onChange={handleChange} />
-                <input type="datetime-local" name="Timestamp" placeholder='Timestamp' value={formData.Timestamp} required onChange={handleChange} />
+                <input 
+                    type="text" 
+                    name="MacAddress" 
+                    placeholder='Mac Address' 
+                    value={formData.MacAddress} 
+                    required 
+                    onChange={handleChange} 
+                />
+                <input 
+                    type="datetime-local" 
+                    name="Timestamp" 
+                    placeholder='Timestamp' 
+                    value={formData.Timestamp} 
+                    required 
+                    onChange={handleChange} 
+                />
                 <button type="submit">Crear</button>
             </form>
         </div>

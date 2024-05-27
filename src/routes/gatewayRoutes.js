@@ -1,15 +1,15 @@
 const express = require('express');
 const router = express.Router();
-const { getAllGatewaysMac, getGateways, createGateway, updateGateway, deleteGateway } = require('../controllers/gatewayController');
+const gatewayController= require('../controllers/gatewayController');
 
 // Rutas para obtener todas las direcciones MAC de los Gateways
-router.get('/', getAllGatewaysMac);
+router.get('/', gatewayController.getAllGatewaysMac);
 
 // Rutas para Gateways
-router.get('/all', getGateways);
-router.post('/', createGateway);
-router.put('/:id', updateGateway);
-router.delete('/:id', deleteGateway);
+router.get('/all', gatewayController.getGateways);
+router.post('/', gatewayController.createGateway);
+router.put('/:id', gatewayController.updateGateway);
+router.delete('/:id', gatewayController.deleteGateway);
 
 
 module.exports = router;
